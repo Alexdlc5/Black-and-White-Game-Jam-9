@@ -19,20 +19,25 @@ public class Movement : MonoBehaviour
     private char previous_key = ' ';
 
     //tech installs
+    //health
     public bool has_tech_a;
     public bool has_tech_b;
     public bool has_tech_c;
     public bool has_tech_d;
     public bool has_tech_e;
 
+    public PlayerData player_data;
     private void Start()
     {
         has_tech_a = PlayerData.has_tech_a;
+        if (has_tech_a)
+        {
+            health += 5;
+        }
         has_tech_b = PlayerData.has_tech_b;
         has_tech_c = PlayerData.has_tech_c;
         has_tech_d = PlayerData.has_tech_d;
         has_tech_e = PlayerData.has_tech_e;
-
         rb = GetComponent<Rigidbody2D>();
     }
     // Update is called once per frame
@@ -45,7 +50,7 @@ public class Movement : MonoBehaviour
             PlayerData.has_tech_c = has_tech_c;
             PlayerData.has_tech_d = has_tech_d;
             PlayerData.has_tech_e = has_tech_e;
-
+            DontDestroyOnLoad(player_data);
             SceneManager.LoadScene("City");
         }
 
@@ -164,6 +169,15 @@ public class Movement : MonoBehaviour
         if (horizontal_movement_inframe == false)
         {
             previous_key = ' ';
+        }
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == "TechPickupA")
+        {
+            has_tech_a = true;
         }
     }
 }

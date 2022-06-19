@@ -17,6 +17,7 @@ public class Window_Manager : MonoBehaviour
         }
         else if (!PauseOpen && !StoreOpen && Input.GetKeyDown(KeyCode.Escape))
         {
+            Time.timeScale = 0;
             pause.SetActive(true);
             PauseOpen = true;
         }
@@ -27,6 +28,7 @@ public class Window_Manager : MonoBehaviour
         }
         else if (!StoreOpen && PauseOpen && Input.GetKeyDown(KeyCode.Escape))
         {
+            Time.timeScale = 1;
             pause.SetActive(false);
             PauseOpen = false;
         }

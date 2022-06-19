@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
 {
     public bool isEnemyProjectile = false;
     public float speed;
+    public GameObject blood;
     public float projectile_lifetime;
     public Transform newtransform;
     void Start()

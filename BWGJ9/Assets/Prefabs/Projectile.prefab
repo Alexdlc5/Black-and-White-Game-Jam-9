@@ -98,7 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27165f5dbcb438b4eb1e9db570573731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnemyProjectile: 0
   speed: 60
+  blood: {fileID: 3899536717347902906, guid: c068458b46465b84abd5c595cafc36b3, type: 3}
   projectile_lifetime: 5
   newtransform: {fileID: 0}
 --- !u!58 &4257739545695039602
