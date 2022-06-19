@@ -5,11 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
-    public float health = 10;
+    public float health = 2;
 
     //speeds
     public float speed;
     public float jump_height;
+    public float max_speed;
     public float sprinting_multiplier = 1.05f;
     //Components
     private Rigidbody2D rb;
@@ -25,24 +26,56 @@ public class Movement : MonoBehaviour
     public bool has_tech_c;
     public bool has_tech_d;
     public bool has_tech_e;
-
+    //saved plaer data
     public PlayerData player_data;
+    //animation
+    public Animator animator;
     private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
+
+        //sets up animator
+        animator = GetComponent<Animator>();
+
+        //sets player upgrades
         has_tech_a = PlayerData.has_tech_a;
         if (has_tech_a)
         {
-            health += 5;
+            max_speed += 1;
+            health += 1;
         }
         has_tech_b = PlayerData.has_tech_b;
+        if (has_tech_b)
+        {
+            max_speed += 1;
+            jump_height += 25;
+        }
         has_tech_c = PlayerData.has_tech_c;
+        if (has_tech_c)
+        {
+            max_speed += 1;
+            health += 2;
+        }
         has_tech_d = PlayerData.has_tech_d;
+        if (has_tech_d)
+        {
+            max_speed += 1;
+            jump_height += 25;
+        }
         has_tech_e = PlayerData.has_tech_e;
-        rb = GetComponent<Rigidbody2D>();
+        if (has_tech_e)
+        {
+            max_speed += 1;
+            jump_height += 25;
+            health += 3;
+        }
     }
     // Update is called once per frame
     void FixedUpdate()
     {
+        //if falling or jumping play jump anim 
+        animator.SetBool("Movement_Y", !check.is_Touching_Ground);
+
         if (health <= 0)
         {
             PlayerData.has_tech_a = has_tech_a;
@@ -69,6 +102,9 @@ public class Movement : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.A))
         {
+            //sets running anim
+            animator.SetBool("Movement_X", true);
+
             //sets HMI to true and adjusts speed
             horizontal_movement_inframe = true;
             if (previous_key == 'd' || previous_key == ' ')
@@ -88,18 +124,25 @@ public class Movement : MonoBehaviour
                 {
                     if (shifting)
                     {
-                        current_speed = (current_speed / 4) * sprinting_multiplier;
+                        current_speed = (current_speed / 1.5f) * sprinting_multiplier;
                     }
                     else
                     {
-                        current_speed = current_speed / 4;
+                        current_speed = current_speed / 1.5f;
                     }
                 }
                 previous_key = 'a';
             }
             //moves in given direction
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 180, transform.rotation.eulerAngles.z);
-            transform.position = new Vector3(transform.position.x - current_speed * Time.fixedDeltaTime, transform.position.y, transform.position.z);
+            if (current_speed >= max_speed)
+            {
+                transform.position = new Vector3(transform.position.x - max_speed * Time.fixedDeltaTime, transform.position.y, transform.position.z);
+            }
+            else
+            {
+                transform.position = new Vector3(transform.position.x - current_speed * Time.fixedDeltaTime, transform.position.y, transform.position.z);
+            }
             if (shifting)
             {
                 current_speed = (current_speed + speed / 5) * sprinting_multiplier;
@@ -116,6 +159,8 @@ public class Movement : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.D))
         {
+            //sets running anim
+            animator.SetBool("Movement_X", true);
             //represents wheather or not player has hit horizontal movement key (HMI)
             horizontal_movement_inframe = true;
             if (previous_key == 'a' || previous_key == ' ')
@@ -135,18 +180,25 @@ public class Movement : MonoBehaviour
                 {
                     if (shifting)
                     {
-                        current_speed = (current_speed / 4) * sprinting_multiplier;
+                        current_speed = (current_speed / 1.5f) * sprinting_multiplier;
                     }
                     else
                     {
-                        current_speed = current_speed / 4;
+                        current_speed = current_speed / 1.5f;
                     }
                 }
                 previous_key = 'd';
             }
             //moves in given direction
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 0, transform.rotation.eulerAngles.z);
-            transform.position = new Vector3(transform.position.x + current_speed * Time.fixedDeltaTime, transform.position.y, transform.position.z);
+            if (current_speed >= max_speed)
+            {
+                transform.position = new Vector3(transform.position.x + max_speed * Time.fixedDeltaTime, transform.position.y, transform.position.z);
+            }
+            else
+            {
+                transform.position = new Vector3(transform.position.x + current_speed * Time.fixedDeltaTime, transform.position.y, transform.position.z);
+            }
             if (shifting)
             {
                 current_speed = (current_speed + speed / 5) * sprinting_multiplier;
@@ -170,6 +222,11 @@ public class Movement : MonoBehaviour
         {
             previous_key = ' ';
         }
+        //sets idle anim
+        if (!horizontal_movement_inframe)
+        {
+            animator.SetBool("Movement_X", false);
+        }
 
     }
 
@@ -178,6 +235,22 @@ public class Movement : MonoBehaviour
         if (collision.gameObject.name == "TechPickupA")
         {
             has_tech_a = true;
+        }
+        if (collision.gameObject.name == "TechPickupB")
+        {
+            has_tech_b = true;
+        }
+        if (collision.gameObject.name == "TechPickupC")
+        {
+            has_tech_c = true;
+        }
+        if (collision.gameObject.name == "TechPickupD")
+        {
+            has_tech_d = true;
+        }
+        if (collision.gameObject.name == "TechPickupE")
+        {
+            has_tech_e = true;
         }
     }
 }

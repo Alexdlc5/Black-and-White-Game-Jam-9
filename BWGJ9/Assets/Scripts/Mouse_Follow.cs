@@ -8,6 +8,6 @@ public class Mouse_Follow : MonoBehaviour
     {
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.LookAt(new Vector3(worldPosition.x, worldPosition.y, transform.position.z));
-        transform.position = player.position;
+        //transform.position = player.position;
     }
 }
