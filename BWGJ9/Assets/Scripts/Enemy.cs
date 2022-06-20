@@ -16,10 +16,20 @@ public class Enemy : MonoBehaviour
     public GameObject ProjectileSpawn;
     private float distance_from_player;
     public float agro_range;
+    public Animator animator;
 
+    //random variables
+    private bool isAgressive;
     // Start is called before the first frame update
     void Start()
     {
+        //sets random values
+        if (UnityEngine.Random.Range(-1,1) >= 0)
+            isAgressive = true;
+        else
+            isAgressive=false;
+        //set necesary variables
+        animator = GetComponent<Animator>();
         Player = GameObject.Find("Player");
     }
 
@@ -46,17 +56,26 @@ public class Enemy : MonoBehaviour
 
             if (canMove)
             {
-                float movement_direction = 0;
-                if (Player.transform.position.x <= transform.position.x)
+                animator.SetBool("Movement_X", true);
+                float movement_direction = 1;
+                if (isAgressive)
                 {
                     movement_direction = -1;
                 }
+                if (Player.transform.position.x <= transform.position.x)
+                {
+                    transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 180, transform.rotation.eulerAngles.z);
+                }
                 else
                 {
-                    movement_direction = 1;
+                    transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 0, transform.rotation.eulerAngles.z);
                 }
                 transform.position += Vector3.right * movement_direction * moving_speed * Time.fixedDeltaTime;
             }
+        }
+        else
+        {
+            animator.SetBool("Movement_X", false);
         }
     }
 
