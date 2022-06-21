@@ -302,10 +302,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d29cfb7c4106184d98426f74de7505f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  health: 1
   canMove: 1
-  moving_speed: 1
-  shooting_speed: 3
+  moving_speed: 0.25
+  shooting_speed: 2
   GunRotator: {fileID: 272905224918905661}
   ProjectileSpawn: {fileID: 272905225395153543}
   agro_range: 15
@@ -323,7 +323,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.01223588}
+  m_Offset: {x: 0.004483223, y: -0.0010258257}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -334,7 +334,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.6084566}
+  m_Size: {x: 0.3991413, y: 1.5860364}
   m_EdgeRadius: 0
 --- !u!95 &272905225199045398
 Animator:
