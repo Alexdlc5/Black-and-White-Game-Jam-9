@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    public GameObject Hit_Player;
+    public GameObject Hit_Enemy;
+    public GameObject Hit_Wall;
     public bool isEnemyProjectile = false;
     public float speed;
-    public GameObject blood;
     public float projectile_lifetime;
     public Transform newtransform;
     void Start()
@@ -33,14 +35,24 @@ public class Projectile : MonoBehaviour
         {
             if (collision.gameObject.tag == "Player")
             {
+                Instantiate(Hit_Player).SetActive(true);
                 collision.gameObject.GetComponent<Movement>().health--;
+            }
+            else
+            {
+                Instantiate(Hit_Wall).SetActive(true);
             }
         }
         else
         {
             if (collision.gameObject.tag == "Enemy")
             {
+                Instantiate(Hit_Enemy).SetActive(true);
                 collision.gameObject.GetComponent<Enemy>().health--;
+            }
+            else
+            {
+                Instantiate(Hit_Wall).SetActive(true);
             }
         }
         Destroy(gameObject);

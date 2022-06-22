@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Window_Manager : MonoBehaviour
 {
@@ -6,7 +7,13 @@ public class Window_Manager : MonoBehaviour
     private bool StoreOpen = false;
 
     public GameObject pause;
+    public Button resumebutton_P;
     private bool PauseOpen = false;
+
+    private void Start()
+    {
+        resumebutton_P.onClick.AddListener(closePause);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -33,6 +40,13 @@ public class Window_Manager : MonoBehaviour
             PauseOpen = false;
         }
 
+    }
+
+    void closePause()
+    {
+        Time.timeScale = 1;
+        pause.SetActive(false);
+        PauseOpen = false;
     }
 }
 

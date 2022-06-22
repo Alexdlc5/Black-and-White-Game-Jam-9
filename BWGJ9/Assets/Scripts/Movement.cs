@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Movement : MonoBehaviour
 {
     public float health = 2;
-
+    public int difficulty;
     //speeds
     public float speed;
     public float jump_height;
@@ -18,15 +18,13 @@ public class Movement : MonoBehaviour
     //speed managment
     private float current_speed;
     private char previous_key = ' ';
-
     //tech installs
-    //health
     public bool has_tech_a;
     public bool has_tech_b;
     public bool has_tech_c;
     public bool has_tech_d;
     public bool has_tech_e;
-    //saved plaer data
+    //saved player data
     public PlayerData player_data;
     //animation
     public Animator animator;
@@ -38,8 +36,7 @@ public class Movement : MonoBehaviour
         animator = GetComponent<Animator>();
 
         //sets player upgrades
-       setPlayerStats();
-
+        setPlayerStats();
     }
     //when new scene loaded update stats
     void OnEnable()
@@ -56,6 +53,9 @@ public class Movement : MonoBehaviour
         {
 
             setPlayerStats();
+            //sets difficulty
+            setDifficulty();
+            check.has_Exited_Ground = true;
         }
     }
     // Update is called once per frame
@@ -198,11 +198,17 @@ public class Movement : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Space))
         {
-            //checks if player is on groud if so jump
-            if (check.is_Touching_Ground)
+            //checks if player is on ground if so jump
+            if (check.is_Touching_Ground && check.has_Exited_Ground)
             {
+                GetComponent<AudioSource>().Play();
                 rb.AddForce(Vector2.up * jump_height);
                 check.is_Touching_Ground = false;
+                check.has_Exited_Ground = false;
+            }
+            else if (!check.has_Exited_Ground)
+            {
+                check.has_Exited_Ground = true;
             }
         }
         //sets the previous key to none if no horizontal key pressed
@@ -249,13 +255,14 @@ public class Movement : MonoBehaviour
         if (has_tech_a)
         {
             max_speed += 1;
-            health += 1;
+            health += 2;
         }
         has_tech_b = PlayerData.has_tech_b;
         if (has_tech_b)
         {
             max_speed += 1;
             jump_height += 25;
+            health += 1;
         }
         has_tech_c = PlayerData.has_tech_c;
         if (has_tech_c)
@@ -268,6 +275,7 @@ public class Movement : MonoBehaviour
         {
             max_speed += 1;
             jump_height += 25;
+            health += 1;
         }
         has_tech_e = PlayerData.has_tech_e;
         if (has_tech_e)
@@ -275,6 +283,23 @@ public class Movement : MonoBehaviour
             max_speed += 1;
             jump_height += 25;
             health += 3;
+        }
+    }
+
+    private void setDifficulty()
+    {
+        difficulty = Difficulty_Button.difficulty;
+        if (difficulty == 0)
+        {
+            health += 3;
+        }
+        else if (difficulty == 1)
+        {
+            health += 0;
+        }
+        else
+        {
+            health -= 1;
         }
     }
 }

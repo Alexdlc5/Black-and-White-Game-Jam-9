@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1426698603676699987}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.998, y: 0.009, z: 0}
+  m_LocalPosition: {x: -0.4, y: 2.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -99,9 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27165f5dbcb438b4eb1e9db570573731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Hit_Player: {fileID: 5364595571211354090, guid: bdf40cf0ebfd1484d9a9762b10300600, type: 3}
+  Hit_Enemy: {fileID: 2744239876564992814, guid: 49639d8a43d72b74aa100f67763142da, type: 3}
+  Hit_Wall: {fileID: 4544114893327365637, guid: 3e95b0f622649214881e8d362188bfe6, type: 3}
   isEnemyProjectile: 0
   speed: 25
-  blood: {fileID: 3899536717347902906, guid: c068458b46465b84abd5c595cafc36b3, type: 3}
   projectile_lifetime: 5
   newtransform: {fileID: 0}
 --- !u!58 &4257739545695039602

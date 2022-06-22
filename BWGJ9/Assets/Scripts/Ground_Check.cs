@@ -3,6 +3,8 @@ using UnityEngine;
 public class Ground_Check : MonoBehaviour
 {
     public bool is_Touching_Ground = true;
+    public bool has_Exited_Ground = true;
+
     void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
@@ -22,13 +24,7 @@ public class Ground_Check : MonoBehaviour
         } 
         else
         {
-            is_Touching_Ground = false;
+            is_Touching_Ground = false; has_Exited_Ground = true;
         }
-    }
-
-    //called by ground check
-    public void isTouchingGround(bool touching_ground)
-    {
-        is_Touching_Ground = touching_ground;
     }
 }
