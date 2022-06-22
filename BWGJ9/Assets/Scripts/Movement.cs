@@ -38,36 +38,24 @@ public class Movement : MonoBehaviour
         animator = GetComponent<Animator>();
 
         //sets player upgrades
-        has_tech_a = PlayerData.has_tech_a;
-        if (has_tech_a)
+       setPlayerStats();
+
+    }
+    //when new scene loaded update stats
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "City")
         {
-            max_speed += 1;
-            health += 1;
-        }
-        has_tech_b = PlayerData.has_tech_b;
-        if (has_tech_b)
-        {
-            max_speed += 1;
-            jump_height += 25;
-        }
-        has_tech_c = PlayerData.has_tech_c;
-        if (has_tech_c)
-        {
-            max_speed += 1;
-            health += 2;
-        }
-        has_tech_d = PlayerData.has_tech_d;
-        if (has_tech_d)
-        {
-            max_speed += 1;
-            jump_height += 25;
-        }
-        has_tech_e = PlayerData.has_tech_e;
-        if (has_tech_e)
-        {
-            max_speed += 1;
-            jump_height += 25;
-            health += 3;
+
+            setPlayerStats();
         }
     }
     // Update is called once per frame
@@ -89,7 +77,7 @@ public class Movement : MonoBehaviour
 
         //represents wheather or not player has hit horizontal movement key (HMI)
         bool horizontal_movement_inframe = false;
-        
+
         bool shifting = false;
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -251,6 +239,42 @@ public class Movement : MonoBehaviour
         if (collision.gameObject.name == "TechPickupE")
         {
             has_tech_e = true;
+        }
+    }
+
+    private void setPlayerStats()
+    {
+        //sets player upgrades
+        has_tech_a = PlayerData.has_tech_a;
+        if (has_tech_a)
+        {
+            max_speed += 1;
+            health += 1;
+        }
+        has_tech_b = PlayerData.has_tech_b;
+        if (has_tech_b)
+        {
+            max_speed += 1;
+            jump_height += 25;
+        }
+        has_tech_c = PlayerData.has_tech_c;
+        if (has_tech_c)
+        {
+            max_speed += 1;
+            health += 2;
+        }
+        has_tech_d = PlayerData.has_tech_d;
+        if (has_tech_d)
+        {
+            max_speed += 1;
+            jump_height += 25;
+        }
+        has_tech_e = PlayerData.has_tech_e;
+        if (has_tech_e)
+        {
+            max_speed += 1;
+            jump_height += 25;
+            health += 3;
         }
     }
 }
