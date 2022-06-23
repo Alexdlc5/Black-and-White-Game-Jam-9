@@ -254,33 +254,33 @@ public class Movement : MonoBehaviour
         has_tech_a = PlayerData.has_tech_a;
         if (has_tech_a)
         {
-            max_speed += 1;
+            max_speed += .25f;
             health += 2;
         }
         has_tech_b = PlayerData.has_tech_b;
         if (has_tech_b)
         {
-            max_speed += 1;
+            max_speed += .25f;
             jump_height += 25;
             health += 1;
         }
         has_tech_c = PlayerData.has_tech_c;
         if (has_tech_c)
         {
-            max_speed += 1;
+            max_speed += .25f;
             health += 2;
         }
         has_tech_d = PlayerData.has_tech_d;
         if (has_tech_d)
         {
-            max_speed += 1;
+            max_speed += .25f;
             jump_height += 25;
             health += 1;
         }
         has_tech_e = PlayerData.has_tech_e;
         if (has_tech_e)
         {
-            max_speed += 1;
+            max_speed += .25f;
             jump_height += 25;
             health += 3;
         }
