@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 public class Difficulty_Button : MonoBehaviour
 {
-    public static int difficulty = 1;
+    public static int difficulty = 0;
     public TextMeshProUGUI text;
     public Button button;
 

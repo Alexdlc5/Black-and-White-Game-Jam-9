@@ -304,7 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
-  canMove: 1
+  canMove: 0
   moving_speed: 0.25
   shooting_speed: 2
   GunRotator: {fileID: 272905224918905661}

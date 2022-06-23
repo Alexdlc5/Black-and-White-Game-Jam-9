@@ -7,6 +7,8 @@ using TMPro;
 
 public class Scene_Transition : MonoBehaviour
 {
+    public bool isPlayButton = false;
+    public GameObject loadingScreen;
     public Button button;
     public string SceneToLoad;
 
@@ -18,6 +20,10 @@ public class Scene_Transition : MonoBehaviour
 
     void LoadNewScene()
     {
+        if (isPlayButton)
+        {
+            loadingScreen.SetActive(true);
+        }
         SceneManager.LoadScene(SceneToLoad);
         Time.timeScale = 1;
     }
