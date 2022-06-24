@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
+    public float maxhealth;
     public float health = 2;
     public int difficulty;
     //speeds
@@ -56,6 +57,7 @@ public class Movement : MonoBehaviour
             //sets difficulty
             setDifficulty();
             check.has_Exited_Ground = true;
+            maxhealth = health;
         }
     }
     // Update is called once per frame

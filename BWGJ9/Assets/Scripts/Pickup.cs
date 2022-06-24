@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Pickup : MonoBehaviour
 {
-    public Movement player;
     //when new scene loaded update stats
     void OnEnable()
     {
@@ -16,24 +15,23 @@ public class Pickup : MonoBehaviour
     {
         if (scene.name == "City")
         {
-
-            if (player.has_tech_a && name == "TechPickupA")
+            if (PlayerData.has_tech_a && name.Equals("TechPickupA"))
             {
                 gameObject.SetActive(false);
             }
-            if (player.has_tech_b && name == "TechPickupB")
+            else if (PlayerData.has_tech_b && name.Equals("TechPickupB"))
             {
                 gameObject.SetActive(false);
             }
-            if (player.has_tech_c && name == "TechPickupC")
+            else if (PlayerData.has_tech_c && name.Equals("TechPickupC"))
             {
                 gameObject.SetActive(false);
             }
-            if (player.has_tech_d && name == "TechPickupD")
+            else if (PlayerData.has_tech_d && name.Equals("TechPickupD"))
             {
                 gameObject.SetActive(false);
             }
-            if ( player.has_tech_e && name == "TechPickupE")
+            else if (PlayerData.has_tech_e && name.Equals("TechPickupE"))
             {
                 gameObject.SetActive(false);
             }
