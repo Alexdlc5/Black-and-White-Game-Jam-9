@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -29,6 +27,9 @@ public class Movement : MonoBehaviour
     public PlayerData player_data;
     //animation
     public Animator animator;
+    //ragdoll
+    public GameObject body;
+    public GameObject weapon;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -73,6 +74,9 @@ public class Movement : MonoBehaviour
             PlayerData.has_tech_c = has_tech_c;
             PlayerData.has_tech_d = has_tech_d;
             PlayerData.has_tech_e = has_tech_e;
+            PlayerData.time = GameObject.Find("Timer").GetComponent<Timer>().timer;
+            Instantiate(weapon).GetComponent<DDOL>().coords = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
+            Instantiate(body).GetComponent<DDOL>().coords = new Vector3(transform.position.x - 42, transform.position.y + 2, transform.position.z);
             DontDestroyOnLoad(player_data);
             SceneManager.LoadScene("City");
         }
@@ -86,10 +90,6 @@ public class Movement : MonoBehaviour
             shifting = true;
         }
         //movement keys
-        if (Input.GetKey(KeyCode.W))
-        {
-            //+transition out of crouch
-        }
         if (Input.GetKey(KeyCode.A))
         {
             //sets running anim
@@ -141,11 +141,6 @@ public class Movement : MonoBehaviour
             {
                 current_speed = (current_speed + speed / 5);
             }
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            //+crouch
-            rb.AddForce(Vector2.down * current_speed / 2f);
         }
         if (Input.GetKey(KeyCode.D))
         {
@@ -256,6 +251,14 @@ public class Movement : MonoBehaviour
         has_tech_a = PlayerData.has_tech_a;
         if (has_tech_a)
         {
+            if (difficulty == 2)
+            {
+                health += 1;
+            }
+            else
+            {
+                health += 2;
+            }
             max_speed += .25f;
             health += 2;
         }
@@ -264,27 +267,56 @@ public class Movement : MonoBehaviour
         {
             max_speed += .25f;
             jump_height += 25;
-            health += 1;
+            if (difficulty == 2)
+            {
+                health += 0;
+            }
+            else
+            {
+                health += 1;
+            }
         }
         has_tech_c = PlayerData.has_tech_c;
         if (has_tech_c)
         {
             max_speed += .25f;
-            health += 2;
+            if (difficulty == 2)
+            {
+                health += 1;
+            }
+            else
+            {
+                health += 2;
+            }
         }
         has_tech_d = PlayerData.has_tech_d;
         if (has_tech_d)
         {
             max_speed += .25f;
             jump_height += 25;
-            health += 1;
+            if (difficulty == 2)
+            {
+                health += 0;
+            }
+            else
+            {
+                health += 1;
+            }
+
         }
         has_tech_e = PlayerData.has_tech_e;
         if (has_tech_e)
         {
             max_speed += .25f;
             jump_height += 25;
-            health += 3;
+            if (difficulty == 2)
+            {
+                health += 1;
+            }
+            else
+            {
+                health += 3;
+            }
         }
     }
 
